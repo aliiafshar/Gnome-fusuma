@@ -1,62 +1,26 @@
-# Gnome-fusuma config
-# Fusuma Configuration for Linux Trackpad (Mac-like Gestures)
+# Fusuma Configuration for macOS-like Multi-Touch Gestures on Linux
 
-This repository contains a custom Fusuma configuration to enable Mac-like multi-touch gestures on Linux using a trackpad. Fusuma is a gesture recognition tool for Linux that allows you to configure custom gestures for your trackpad.
+## Introduction
+This repository contains a Fusuma configuration that replicates macOS-style multi-touch gestures on Linux. It uses `xdotool` to map common trackpad gestures to familiar macOS-like actions, such as workspace switching, history navigation, and zooming.
 
----
-
-## 🚀 Features
-
-- **Swipe Gestures:**
-  - **3-Finger Swipe:**
-    - **Left:** Navigate forward in history (`Alt + Right`).
-    - **Right:** Navigate back in history (`Alt + Left`).
-    - **Up/Down:** Open activities overview (`Super` key).
-  - **4-Finger Swipe:**
-    - **Left/Right:** Switch between workspaces (`Ctrl + Alt + Left/Right`).
-    - **Up/Down:** Switch between workspaces (`Super + A/D`).
-
-- **Pinch Gestures:**
-  - **In:** Zoom in (`Ctrl + Scroll Up`).
-  - **Out:** Zoom out (`Ctrl + Scroll Down`).
-
----
-
-## 🛠️ Installation
-
-### Step 1: Install Fusuma
-Make sure you have Fusuma installed on your system. You can install it using RubyGems:
+## Requirements
+Before using this configuration, ensure you have the necessary dependencies installed:
 
 ```bash
-gem install fusuma
-Step 2: Install xdotool
-Fusuma relies on xdotool to simulate keyboard events. Install it using your package manager:
+sudo apt update && sudo apt install libinput-tools xdotool ruby
+sudo gem install fusuma
+```
 
-bash
-Copy
-sudo apt install xdotool  # For Debian/Ubuntu-based systems
-sudo dnf install xdotool  # For Fedora
-sudo pacman -S xdotool    # For Arch Linux
-Step 3: Add Fusuma to Input Group
-Add your user to the input group to allow Fusuma to read trackpad events:
+For better performance, install the following optional plugins:
 
-bash
-Copy
-sudo gpasswd -a $USER input
-Log out and log back in for the changes to take effect.
+```bash
+sudo gem install fusuma-plugin-sendkey fusuma-plugin-tap fusuma-plugin-wmctrl
+```
 
-Step 4: Copy Configuration File
-Clone this repository or copy the config.yml file to your Fusuma configuration directory:
+## Configuration
+Place the following configuration in `~/.config/fusuma/config.yml`:
 
-bash
-Copy
-mkdir -p ~/.config/fusuma
-cp config.yml ~/.config/fusuma/
-⚙️ Configuration
-The config.yml file contains the following settings:
-
-yaml
-Copy
+```yaml
 swipe:
   3:
     left:
@@ -82,14 +46,38 @@ pinch:
     command: "xdotool keydown ctrl click 4 keyup ctrl" # Zoom in
   out:
     command: "xdotool keydown ctrl click 5 keyup ctrl" # Zoom out
-🖱️ Usage
-After setting up Fusuma, you can start it by running:
+```
 
-bash
-Copy
+## Running Fusuma
+To start Fusuma, use the following command:
+
+```bash
 fusuma
-To run Fusuma in the background, use:
+```
 
-bash
-Copy
+To run it as a background service, use:
+
+```bash
+nohup fusuma &
+```
+
+For autostart, add it to your startup applications or include it in your `.xprofile` or `.bashrc`.
+
+## Customization
+You can modify keybindings according to your preference. Check `xdotool` documentation for more key mappings:
+
+```bash
+man xdotool
+```
+
+## Troubleshooting
+- If gestures are not detected, ensure that `libinput-tools` is installed and `fusuma` has the correct permissions.
+- Run Fusuma in debug mode to check logs:
+
+```bash
 fusuma -d
+```
+
+## License
+This configuration is open-source. Feel free to modify and share!
+
