@@ -77,7 +77,3 @@ man xdotool
 ```bash
 fusuma -d
 ```
-
-## License
-This configuration is open-source. Feel free to modify and share!
-
