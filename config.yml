@@ -23,4 +23,5 @@ pinch:
     command: "xdotool keydown ctrl click 4 keyup ctrl" # Zoom in
   out:
     command: "xdotool keydown ctrl click 5 keyup ctrl" # Zoom out
+    command: "xdotool keydown ctrl click 5 keyup ctrl" # Zoom out
 
